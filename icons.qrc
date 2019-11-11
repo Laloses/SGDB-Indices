@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>imgs/backArrow.png</file>
+        <file>imgs/calendar.png</file>
+        <file>imgs/consultorio.png</file>
+        <file>imgs/diploma.png</file>
+        <file>imgs/email.png</file>
+        <file>imgs/fondo.png</file>
+        <file>imgs/home.png</file>
+        <file>imgs/horario.png</file>
+        <file>imgs/logoFinal.png</file>
+        <file>imgs/logofinal1.png</file>
+        <file>imgs/mas.png</file>
+        <file>imgs/notification.png</file>
+        <file>imgs/notification2.png</file>
+        <file>imgs/NoView.png</file>
+        <file>imgs/password.png</file>
+        <file>imgs/passwordConf.png</file>
+        <file>imgs/phone.png</file>
+        <file>imgs/refresh.png</file>
+        <file>imgs/search.png</file>
+        <file>imgs/tick.png</file>
+        <file>imgs/universidad.png</file>
+        <file>imgs/view.png</file>
+    </qresource>
+</RCC>
