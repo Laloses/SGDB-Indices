@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>240</width>
-    <height>134</height>
+    <height>137</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:black;
+color: white;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -79,6 +83,10 @@
            <height>30</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
+border:none;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -125,6 +133,16 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pb_aceptar">
+       <property name="styleSheet">
+        <string notr="true">color:black;</string>
+       </property>
+       <property name="text">
+        <string>Aceptar</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="lb_cantTablas">

@@ -6,7 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Indices");
+    database= QSqlDatabase::addDatabase("QMYSQL");
+    database.setPort(3306);
+    database.setHostName("localhost");
+    database.setUserName("root");
+    database.setPassword("");
 }
 
 MainWindow::~MainWindow()
@@ -17,6 +21,7 @@ MainWindow::~MainWindow()
 //Cuando se importan las tablas
 void MainWindow::on_actionImportar_Tablas_triggered()
 {
-    buscarTablas *bus= new buscarTablas;
-    bus->show();
+    buscarTablas *l= new buscarTablas(this,database);
+    l->show();
+    db=l->getDB();
 }

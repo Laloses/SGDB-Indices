@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-11-10T21:17:22
+# Project created by QtCreator 2019-11-11T14:09:22
 #
 #-------------------------------------------------
 
@@ -25,16 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    buscartablas.cpp \
-    mainwindow.cpp
+        buscartablas.cpp \
+        main.cpp \
+        mainwindow.cpp
 
 HEADERS += \
-    buscartablas.h \
-    mainwindow.h
+        buscartablas.h \
+        mainwindow.h
 
 FORMS += \
-    buscartablas.ui \
-    mainwindow.ui
+        buscartablas.ui \
+        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

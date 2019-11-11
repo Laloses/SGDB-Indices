@@ -18,13 +18,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QFile datosImp;
 
 private slots:
     void on_actionImportar_Tablas_triggered();
 
 private:
     Ui::MainWindow *ui;
+    QSqlDatabase database;
+    QFile datosImp;
+    QString db;
+    void setDB();
 };
 
 #endif // MAINWINDOW_H
