@@ -5,7 +5,8 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QMessageBox>
-#include "buscartablas.h"
+#include <QDialogButtonBox>
+#include <QtSql>
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, QString db="", QString nombre="");
     ~MainWindow();
 
 private slots:
@@ -26,8 +27,8 @@ private:
     Ui::MainWindow *ui;
     QSqlDatabase database;
     QFile datosImp;
-    QString db;
-    void setDB();
+    QString db, nombre;
+    void llenarIndices();
 };
 
 #endif // MAINWINDOW_H

@@ -29,8 +29,8 @@ public:
     QAction *actionImportar_Tablas;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
-    QTableView *tableView;
-    QTableView *tableView_2;
+    QTableView *tv_indice;
+    QTableView *tv_tabla;
     QMenuBar *menubar;
     QMenu *menuDatos;
     QStatusBar *statusbar;
@@ -48,22 +48,24 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        tableView = new QTableView(centralwidget);
-        tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setMinimumSize(QSize(92, 254));
-        tableView->setMaximumSize(QSize(100, 16777215));
-        tableView->setStyleSheet(QString::fromUtf8("background:white;\n"
+        tv_indice = new QTableView(centralwidget);
+        tv_indice->setObjectName(QString::fromUtf8("tv_indice"));
+        tv_indice->setEnabled(false);
+        tv_indice->setMinimumSize(QSize(92, 254));
+        tv_indice->setMaximumSize(QSize(100, 16777215));
+        tv_indice->setStyleSheet(QString::fromUtf8("background:white;\n"
 "color:black;"));
 
-        horizontalLayout->addWidget(tableView);
+        horizontalLayout->addWidget(tv_indice);
 
-        tableView_2 = new QTableView(centralwidget);
-        tableView_2->setObjectName(QString::fromUtf8("tableView_2"));
-        tableView_2->setMinimumSize(QSize(457, 254));
-        tableView_2->setStyleSheet(QString::fromUtf8("background:white;\n"
+        tv_tabla = new QTableView(centralwidget);
+        tv_tabla->setObjectName(QString::fromUtf8("tv_tabla"));
+        tv_tabla->setMinimumSize(QSize(457, 254));
+        tv_tabla->setStyleSheet(QString::fromUtf8("background:white;\n"
 "color:black;"));
+        tv_tabla->horizontalHeader()->setCascadingSectionResizes(true);
 
-        horizontalLayout->addWidget(tableView_2);
+        horizontalLayout->addWidget(tv_tabla);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
