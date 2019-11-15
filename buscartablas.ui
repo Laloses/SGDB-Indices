@@ -28,6 +28,9 @@ padding:2px;
 QPushButton:hover{
 margin-top:1px;
 }
+QMessageBox{
+color:black;
+}
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
