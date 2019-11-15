@@ -56,19 +56,18 @@ void buscarTablas::on_pb_buscarDB_clicked()
     }
     else{
         hay=true;
-        ui->pb_nuevaT->show();
-        QSqlQuery tablas;
         int cont=0;
-        tablas.exec("SHOW TABLES");
+        QStringList tablas;
+        tablas = database.tables();
         QLabel *lab;
         QPushButton *pb;
         QHBoxLayout *hlay;
         QString nombre;
-        while(tablas.next()){
+        for(cont=0; cont<tablas.size(); cont++){
             hlay= new QHBoxLayout;
             lab=new QLabel;
             pb = new QPushButton;
-            nombre = tablas.value(0).toString();
+            nombre = tablas.at(cont);
 
             lab->setText(nombre);
             lab->setAlignment(Qt::AlignCenter);
@@ -80,8 +79,6 @@ void buscarTablas::on_pb_buscarDB_clicked()
             connect(pb,&QPushButton::clicked,[=](){emit seleccionarT(nombre, pb);});
 
             ui->layTablas->addLayout(hlay);
-
-            cont++;
         }
         ui->lb_cantTablas->setText("Hay "+QString::number(cont)+" tablas");
     }
