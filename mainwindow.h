@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, QString db="", QString nombre="");
+    explicit MainWindow(QWidget *parent = nullptr, QSqlDatabase databse=QSqlDatabase::database(), QString db="", QString nombre="");
     ~MainWindow();
 
 private slots:

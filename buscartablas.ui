@@ -7,15 +7,28 @@
     <x>0</x>
     <y>0</y>
     <width>241</width>
-    <height>172</height>
+    <height>203</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:black;
-color: white;</string>
+   <string notr="true">#buscarTablas{
+background-color:black;
+color: white;
+}
+QWidget{
+color: white;
+}
+QPushButton{
+border: 1px solid red;
+padding:2px;
+}
+QPushButton:hover{
+margin-top:1px;
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -58,34 +71,11 @@ color: white;</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QLineEdit" name="le_DB"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pb_nuevaDB">
+      <widget class="QLineEdit" name="le_DB">
        <property name="styleSheet">
         <string notr="true">color:black;</string>
        </property>
-       <property name="text">
-        <string>Nueva DB</string>
-       </property>
       </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QPushButton" name="pb_buscarDB">
@@ -114,8 +104,35 @@ border:none;</string>
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="lb_cantTablas">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_8">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -130,18 +147,14 @@ border:none;</string>
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="layTablas"/>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pb_nuevaT">
-     <property name="styleSheet">
-      <string notr="true">color:black;
-</string>
-     </property>
-     <property name="text">
-      <string>Nueva tabla</string>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="layTablas"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -159,20 +172,12 @@ border:none;</string>
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="bb_aceptar">
+      <widget class="QPushButton" name="pb_nuevaT">
        <property name="styleSheet">
-        <string notr="true">color:black;
-</string>
+        <string notr="true"/>
        </property>
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lb_cantTablas">
        <property name="text">
-        <string>TextLabel</string>
+        <string>Nueva tabla</string>
        </property>
       </widget>
      </item>
@@ -190,6 +195,56 @@ border:none;</string>
       </spacer>
      </item>
     </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pb_nuevaDB">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Nueva DB</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="bb_aceptar">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

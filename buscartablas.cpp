@@ -2,16 +2,24 @@
 #include "ui_buscartablas.h"
 #include "mainwindow.h"
 
-buscarTablas::buscarTablas(QWidget *parent, QSqlDatabase db) :
+buscarTablas::buscarTablas(QWidget *parent, QSqlDatabase datab, QString db) :
     QDialog(parent),
     ui(new Ui::buscarTablas)
 {
-    database=db;
+    this->db=db;
+    if(datab.isValid()){
+        database=datab;
+    }
+    else{
+        database= QSqlDatabase::addDatabase("QMYSQL");
+    }
     database.setHostName("localhost");
     database.setPort(3306);
     ui->setupUi(this);
     ui->lb_cantTablas->hide();
     ui->pb_nuevaT->hide();
+    nombre.clear();
+    this->db.clear();
 }
 
 buscarTablas::~buscarTablas()
@@ -35,16 +43,20 @@ void buscarTablas::clearLay(QLayout *layout) {
 
 void buscarTablas::on_pb_buscarDB_clicked()
 {
-    ui->pb_nuevaT->show();
+    select=false;
+    hay=false;
     clearLay(ui->layTablas);
     db=ui->le_DB->text();
     database.setDatabaseName(db);
     if( !database.open("root","") ){
         ui->lb_cantTablas->setText("[Error]: Verifique el nombre.");
+        qDebug()<<database.lastError().text();
+        ui->pb_nuevaT->hide();
         hay=false;
     }
     else{
         hay=true;
+        ui->pb_nuevaT->show();
         QSqlQuery tablas;
         int cont=0;
         tablas.exec("SHOW TABLES");
@@ -59,11 +71,13 @@ void buscarTablas::on_pb_buscarDB_clicked()
             nombre = tablas.value(0).toString();
 
             lab->setText(nombre);
-            lab->setAlignment(Qt::AlignLeft);
+            lab->setAlignment(Qt::AlignCenter);
             hlay->addWidget(lab);
 
             pb->setText("Seleccionar");
-            connect(pb,&QPushButton::clicked,[=](){emit seleccionarT(nombre);});
+            pb->setStyleSheet("background:black; color:white; border:1px solid blue;");
+            hlay->addWidget(pb);
+            connect(pb,&QPushButton::clicked,[=](){emit seleccionarT(nombre, pb);});
 
             ui->layTablas->addLayout(hlay);
 
@@ -75,9 +89,31 @@ void buscarTablas::on_pb_buscarDB_clicked()
     this->update();
 }
 
-void buscarTablas::seleccionarT(QString nombre){
-    nombre=this->nombre;
+void buscarTablas::seleccionarT(QString nombre, QPushButton *pb){
     db=ui->le_DB->text();
+    int cont=0, tam;
+    tam=ui->layTablas->layout()->count();
+    //No uso w para no pedir mas memoria y guardar el nuevo objeto widget
+    //QWidget *w;
+    QString estiloSel="background:red; color:black;", estiloNoSel="background:black; color:white; border:1px solid blue;";
+    //Desmarcamos los demas
+    for(cont=0; cont<tam; cont++){
+        //w=ui->layTablas->layout()->itemAt(cont)->layout()->itemAt(1)->widget();
+       //Si es difente el boton acutal que selecciono
+       if( pb == ui->layTablas->layout()->itemAt(cont)->layout()->itemAt(1)->widget() ){
+           if(ui->layTablas->layout()->itemAt(cont)->layout()->itemAt(1)->widget()->styleSheet() == estiloSel){
+               ui->layTablas->layout()->itemAt(cont)->layout()->itemAt(1)->widget()->setStyleSheet(estiloNoSel);
+           }
+           else{
+               ui->layTablas->layout()->itemAt(cont)->layout()->itemAt(1)->widget()->setStyleSheet(estiloSel);
+               this->nombre=nombre;
+           }
+       }
+       else{
+           ui->layTablas->layout()->itemAt(cont)->layout()->itemAt(1)->widget()->setStyleSheet(estiloNoSel);
+       }
+    }
+    qDebug()<<this->nombre;
 }
 
 QString buscarTablas::getDB(){
@@ -88,20 +124,26 @@ QString buscarTablas::getDB(){
 
 void buscarTablas::on_bb_aceptar_accepted()
 {
-    MainWindow *w = new MainWindow(nullptr,db,nombre);
-    w->show();
-    this->close();
+    if(!nombre.isEmpty() && !db.isEmpty() ){
+        MainWindow *w = new MainWindow(nullptr,database,db,nombre);
+        database.close();
+        w->show();
+        this->close();
+    }
+    else {
+        QMessageBox::information(this,"Error","Por favor seleccione una tabla");
+    }
 }
 
 void buscarTablas::on_pb_nuevaDB_clicked()
 {
     QString nombre = QInputDialog::getText(this,"Ingresa el nombre de la base de datos","Nombre");
     database.setDatabaseName("information_schema");
-    database.open();
+    database.open("root","");
     QSqlQuery *nueva = new QSqlQuery;
     if( !nueva->exec("CREATE DATABASE "+nombre) ){
         qDebug()<<nueva->lastError().text();
-        QMessageBox::information(this,"Error","Error al crear");
+        QMessageBox::information(this,"Error","Error al crear database");
         return;
     }
     QMessageBox::information(this,"Correcto","Creado correctamente");
@@ -116,7 +158,26 @@ void buscarTablas::on_pb_nuevaT_clicked()
 {
     QSqlQuery *tabla = new QSqlQuery;
     QString nombre = QInputDialog::getText(this,"Ingresa el nombre de la tabla","Nombre");
-    tabla->exec("CREATE TABLE "+nombre)
-
+    int cant = QInputDialog::getInt(this,"Columnas","Ingrese la cantidad de atributos",0,0,10);
+    int i=0;
+    QStringList atributos;
+    for(i=0; i<cant; i++){
+        atributos[i] = QInputDialog::getText(this,"Atributo","Ingrese el atributo "+QString::number(i)+" [ejemplo: int(5) not null default 5]");
+    }
+    if (tabla->exec("CREATE TABLE "+nombre+" "+atributos[0]) ){
+        for(i=1; i<cant; i++){
+            if( !tabla->exec("ALTER TABLE "+nombre+" ADD "+atributos[i]) )
+                qDebug()<<tabla->lastError().text();
+        }
+    }
+    else {
+        qDebug()<<tabla->lastError().text();
+        QMessageBox::information(this,"Error","Error al crear tabla");
+    }
     delete tabla;
+}
+
+void buscarTablas::on_bb_aceptar_rejected()
+{
+    this->close();
 }

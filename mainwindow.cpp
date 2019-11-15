@@ -7,12 +7,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-MainWindow::MainWindow(QWidget *parent, QString db, QString nombre) :
+MainWindow::MainWindow(QWidget *parent,QSqlDatabase datab, QString db, QString nombre) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    database= QSqlDatabase::addDatabase("QMYSQL");
+    database = datab;
     database.setDatabaseName(db);
     database.setPort(3306);
     database.setHostName("localhost");
@@ -35,7 +35,7 @@ void MainWindow::llenarIndices(){
 //Cuando se importan las tablas
 void MainWindow::on_actionImportar_Tablas_triggered()
 {
-    buscarTablas *l= new buscarTablas(nullptr,database);
+    buscarTablas *l= new buscarTablas(nullptr,database,db);
     l->show();
     this->close();
 }
