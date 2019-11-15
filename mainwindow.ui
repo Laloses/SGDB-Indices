@@ -6,73 +6,121 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>313</height>
+    <width>575</width>
+    <height>324</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background:black;
-color:white;</string>
+   <string notr="true">QMainWindow,QMenuBar,QMenu{
+background-color:black;
+color: white;
+}
+QWidget{
+color: white;
+}
+QPushButton{
+border: 1px solid red;
+padding:2px;
+}
+QPushButton:hover{
+margin-top:1px;
+}
+QMessageBox{
+color:black;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTableView" name="tv_indice">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>92</width>
-        <height>254</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:white;
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QTableWidget" name="tv_indice">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>92</width>
+          <height>254</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>92</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background:white;
 color:black;</string>
-      </property>
-     </widget>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableView" name="tv_tabla">
+        <property name="minimumSize">
+         <size>
+          <width>457</width>
+          <height>254</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background:white;
+color:black;</string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>false</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="dragDropOverwriteMode">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::NoSelection</enum>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QTableView" name="tv_tabla">
-      <property name="minimumSize">
-       <size>
-        <width>457</width>
-        <height>254</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:white;
-color:black;</string>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="tabKeyNavigation">
-       <bool>false</bool>
-      </property>
-      <property name="showDropIndicator" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="dragDropOverwriteMode">
-       <bool>false</bool>
-      </property>
-      <property name="selectionMode">
-       <enum>QAbstractItemView::NoSelection</enum>
-      </property>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>true</bool>
-      </attribute>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pb_insertar">
+        <property name="text">
+         <string>Insertar Fila</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pb_borrar">
+        <property name="text">
+         <string>Borra Fila</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pb_modificar">
+        <property name="text">
+         <string>Modificar Fila</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -81,7 +129,7 @@ color:black;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>573</width>
+     <width>575</width>
      <height>21</height>
     </rect>
    </property>
@@ -93,7 +141,6 @@ color:black;</string>
    </widget>
    <addaction name="menuDatos"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionImportar_Tablas">
    <property name="text">
     <string>Importar Tablas</string>

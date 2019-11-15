@@ -7,6 +7,7 @@ buscarTablas::buscarTablas(QWidget *parent, QSqlDatabase datab, QString db) :
     ui(new Ui::buscarTablas)
 {
     this->db=db;
+    this->setFixedSize(241,150);
     if(datab.isValid()){
         database=datab;
     }
@@ -18,6 +19,7 @@ buscarTablas::buscarTablas(QWidget *parent, QSqlDatabase datab, QString db) :
     ui->setupUi(this);
     ui->lb_cantTablas->hide();
     ui->pb_nuevaT->hide();
+    ui->sa_tablas->hide();
     nombre.clear();
     this->db.clear();
 }
@@ -28,17 +30,18 @@ buscarTablas::~buscarTablas()
 }
 
 void buscarTablas::clearLay(QLayout *layout) {
-    QLayoutItem *item;
-    while((item = layout->takeAt(0))) {
-        if (item->layout()) {
-            clearLay(item->layout());
-            delete item->layout();
+    if (layout) {
+        QLayoutItem *item;
+            while((item = layout->takeAt(0))){
+                if (item->layout()) {
+                    clearLay(item->layout());
+                    delete item->layout();
+                }
+                if(item->widget())
+                    item->widget();
+                delete item->widget();
+            }
         }
-        if (item->widget()) {
-            delete item->widget();
-        }
-        delete item;
-    }
 }
 
 void buscarTablas::on_pb_buscarDB_clicked()
@@ -52,6 +55,8 @@ void buscarTablas::on_pb_buscarDB_clicked()
         ui->lb_cantTablas->setText("[Error]: Verifique el nombre.");
         qDebug()<<database.lastError().text();
         ui->pb_nuevaT->hide();
+        ui->sa_tablas->hide();
+        this->setFixedSize(241,200);
         hay=false;
     }
     else{
@@ -81,6 +86,8 @@ void buscarTablas::on_pb_buscarDB_clicked()
             ui->layTablas->addLayout(hlay);
         }
         ui->lb_cantTablas->setText("Hay "+QString::number(cont)+" tablas");
+        ui->sa_tablas->show();
+        this->setFixedSize(241,270);
     }
     ui->lb_cantTablas->show();
     this->update();

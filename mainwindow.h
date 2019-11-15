@@ -28,6 +28,8 @@ private:
     QSqlDatabase database;
     QFile datosImp;
     QString db, nombre;
+    int contIndices;
+    void vaciarIndices();
     void llenarIndices();
 };
 
