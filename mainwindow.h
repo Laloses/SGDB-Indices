@@ -17,20 +17,24 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, QSqlDatabase databse=QSqlDatabase::database(), QString db="", QString nombre="");
+    explicit MainWindow(QWidget *parent = nullptr, QSqlDatabase *databse=nullptr, QString db="", QString nombre="");
     ~MainWindow();
 
 private slots:
     void on_actionImportar_Tablas_triggered();
 
+    void on_pb_insertar_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QSqlDatabase database;
+    QSqlDatabase *database;
     QFile datosImp;
-    QString db, nombre;
+    QString db, nombreT;
     int contIndices;
     void vaciarIndices();
+    void vaciarTabla();
     void llenarIndices();
+    void llenarTabla();
 };
 
 #endif // MAINWINDOW_H

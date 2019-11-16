@@ -18,17 +18,15 @@
 background-color:black;
 color: white;
 }
-QWidget{
-color: white;
-}
 QPushButton{
 border: 1px solid red;
 padding:2px;
+color:white;
 }
 QPushButton:hover{
 margin-top:1px;
 }
-QMessageBox{
+QMessageBox,QInputDialog, QDialogButtonBox{
 color:black;
 }
 </string>
@@ -64,7 +62,7 @@ color:black;</string>
        </widget>
       </item>
       <item>
-       <widget class="QTableView" name="tv_tabla">
+       <widget class="QTableWidget" name="tv_tabla">
         <property name="minimumSize">
          <size>
           <width>457</width>
@@ -90,9 +88,9 @@ color:black;</string>
         <property name="selectionMode">
          <enum>QAbstractItemView::NoSelection</enum>
         </property>
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>true</bool>
-        </attribute>
+        <property name="columnCount">
+         <number>0</number>
+        </property>
        </widget>
       </item>
      </layout>

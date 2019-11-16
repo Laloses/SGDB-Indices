@@ -34,7 +34,7 @@ padding:2px;
 QPushButton:hover{
 margin-top:1px;
 }
-QMessageBox{
+QMessageBox,QDialogButtonBox{
 color:black;
 }
 </string>
