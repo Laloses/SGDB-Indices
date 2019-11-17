@@ -81,17 +81,17 @@ void MainWindow::llenarIndices(){
 }
 
 void MainWindow::vaciarTabla(){
-    int tam=ui->tv_tabla->model()->rowCount();
+    int tam=ui->tv_tabla->rowCount();
     //Eliminar filas
     while(tam>1){
-        ui->tv_tabla->model()->removeRow(tam-1);
-        tam=ui->tv_tabla->model()->rowCount();
+        ui->tv_tabla->removeRow(tam-1);
+        tam=ui->tv_tabla->rowCount();
     }
     //Eliminar columnas
-    tam=ui->tv_tabla->model()->columnCount();
+    tam=ui->tv_tabla->columnCount();
     while(tam>1){
-        ui->tv_tabla->model()->removeColumn(tam-1);
-        tam=ui->tv_tabla->model()->columnCount();
+        ui->tv_tabla->removeColumn(tam-1);
+        tam=ui->tv_tabla->columnCount();
     }
 }
 
@@ -108,6 +108,7 @@ void MainWindow::vaciarIndices(){
 void MainWindow::on_actionImportar_Tablas_triggered()
 {
     buscarTablas *l= new buscarTablas(nullptr,database);
+    this->setWindowTitle("Busqueda de tablas");
     l->show();
     this->close();
 }
@@ -166,7 +167,7 @@ bool MainWindow::existeLlave(int llave){
 
 int MainWindow::buscarLugarTabla(){
         int lugarTabla = contIndices,i;
-        for(i=0; i<ui->tv_tabla->model()->rowCount(); i++){
+        for(i=0; i<ui->tv_tabla->rowCount(); i++){
             //Si encontramos un lugar vacío
             if( ui->tv_tabla->item(i,0)->text().isEmpty() ){
                 lugarTabla=i;
@@ -189,7 +190,7 @@ void MainWindow::on_pb_insertar_clicked()
 
     //Ciclo para obtener los datos a guardar
     QStringList *registro = new QStringList;
-    for(i=0; i<ui->tv_tabla->model()->columnCount(); i++){
+    for(i=0; i<ui->tv_tabla->columnCount(); i++){
         registro->append(QInputDialog::getText( this,"Igresa los datos","Ingresa los datos para '"+ui->tv_tabla->horizontalHeaderItem(i)->text()+"'") );
     }
     // **************************************************************
@@ -214,7 +215,7 @@ void MainWindow::on_pb_insertar_clicked()
 
     //Si hay lugar disponible en la tabla
     if( hayLugar != -1){
-        for(i=0; i<ui->tv_tabla->model()->columnCount(); i++){
+        for(i=0; i<ui->tv_tabla->columnCount(); i++){
             item2 = new QTableWidgetItem(registro->at(i));
             ui->tv_tabla->setItem(hayLugar,i,item2);
         }
@@ -226,7 +227,7 @@ void MainWindow::on_pb_insertar_clicked()
     //Si no hay lugar lo insertamos al final
     else{
         ui->tv_tabla->insertRow(contIndices);
-        for(i=0; i<ui->tv_tabla->model()->columnCount(); i++){
+        for(i=0; i<ui->tv_tabla->columnCount(); i++){
             item2 = new QTableWidgetItem(registro->at(i));
             ui->tv_tabla->setItem(contIndices,i,item2);
         }
@@ -274,4 +275,25 @@ void MainWindow::on_pb_borrar_clicked()
     }
     //Actualizamos el valor
     contIndices=ui->tv_indice->rowCount();
+}
+
+void MainWindow::on_pb_modificar_clicked()
+{
+    int i=0;
+    //Pedimos la llave en donde quiere modificar
+    int miPos = QInputDialog::getInt(this,"Ingresa la llave","Llave del registro a modificar: ",0,0);
+
+    if(existeLlave(miPos)){
+        int posTabla = ui->tv_indice->item(localizarPos(miPos),1)->text().toInt()-1;
+        QStringList *datos = new QStringList;
+        for(i=0; i<ui->tv_tabla->model()->columnCount(); i++){
+            datos->append(QInputDialog::getText( this,"Igresa los datos","Ingresa los datos para '"+ui->tv_tabla->horizontalHeaderItem(i)->text()+"'") );
+        }
+        for(i=0; i<ui->tv_tabla->columnCount(); i++){
+            ui->tv_tabla->item(posTabla,i)->setText(datos->at(i));
+        }
+    }
+    else {
+        QMessageBox::warning(this,"Error","No existe la llave en la tabla de indices.");
+    }
 }

@@ -2,11 +2,15 @@
 #include "ui_buscartablas.h"
 #include "mainwindow.h"
 
+buscarTablas::~buscarTablas()
+{
+    delete ui;
+}
+
 buscarTablas::buscarTablas(QWidget *parent, QSqlDatabase datab) :
     QDialog(parent),
     ui(new Ui::buscarTablas)
 {
-    this->setWindowTitle("Busqueda de tablas");
     this->setFixedSize(241,150);
     database=datab;
     database.setHostName("localhost");
@@ -17,11 +21,6 @@ buscarTablas::buscarTablas(QWidget *parent, QSqlDatabase datab) :
     ui->sa_tablas->hide();
     nombre.clear();
     this->db.clear();
-}
-
-buscarTablas::~buscarTablas()
-{
-    delete ui;
 }
 
 void buscarTablas::clearLay(QLayout *layout) {
@@ -126,6 +125,7 @@ void buscarTablas::on_bb_aceptar_accepted()
     if(!nombre.isEmpty() && !db.isEmpty() ){
         MainWindow *w = new MainWindow(nullptr,database,db,nombre);
         database.close();
+        w->setWindowTitle("Indices de un SGDB");
         w->show();
         this->close();
     }

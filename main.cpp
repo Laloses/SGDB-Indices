@@ -4,9 +4,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    buscarTablas w;
-    w.database = QSqlDatabase::addDatabase("QMYSQL");
-    w.show();
+    buscarTablas *w = new buscarTablas;
+    w->database = QSqlDatabase::addDatabase("QMYSQL");
+    w->setWindowTitle("Busqueda de tablas");
+    w->show();
 
     return a.exec();
 }

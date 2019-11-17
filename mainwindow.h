@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr, QSqlDatabase databse=QSqlDatabase::database(), QString db="", QString nombre="");
     ~MainWindow();
+    QSqlDatabase database;
 
 private slots:
     void on_actionImportar_Tablas_triggered();
@@ -27,9 +28,10 @@ private slots:
 
     void on_pb_borrar_clicked();
 
+    void on_pb_modificar_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QSqlDatabase database;
     QFile datosImp;
     QString db, nombreT;
     int contIndices;

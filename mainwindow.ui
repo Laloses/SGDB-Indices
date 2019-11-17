@@ -137,6 +137,9 @@ color:black;</string>
       </item>
       <item>
        <widget class="QPushButton" name="pb_modificar">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string>Modificar Fila</string>
         </property>
