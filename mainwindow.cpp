@@ -61,7 +61,7 @@ void MainWindow::llenarTabla(){
 }
 
 void MainWindow::llenarIndices(){
-    contIndices= ui->tv_tabla->model()->rowCount();
+    contIndices= ui->tv_tabla->rowCount();
     ui->tv_indice->setColumnCount(2);
     ui->tv_indice->setRowCount(contIndices);
     int i=0;
@@ -156,12 +156,24 @@ void MainWindow::corrimiento(int lugar){
 
 bool MainWindow::existeLlave(int llave){
     int i=0;
-    for(i=0; i<ui->tv_tabla->model()->rowCount(); i++){
+    for(i=0; i<ui->tv_indice->rowCount(); i++){
         if(ui->tv_indice->item(i,0)->text().toInt() == llave){
             return true;
         }
     }
     return false;
+}
+
+int MainWindow::buscarLugarTabla(){
+        int lugarTabla = contIndices,i;
+        for(i=0; i<ui->tv_tabla->model()->rowCount(); i++){
+            //Si encontramos un lugar vacío
+            if( ui->tv_tabla->item(i,0)->text().isEmpty() ){
+                lugarTabla=i;
+                return lugarTabla;
+            }
+        }
+        return -1;
 }
 
 void MainWindow::on_pb_insertar_clicked()
@@ -228,14 +240,38 @@ void MainWindow::on_pb_insertar_clicked()
     contIndices = ui->tv_indice->model()->rowCount();
 }
 
-int MainWindow::buscarLugarTabla(){
-        int lugarTabla = contIndices,i;
-        for(i=0; i<ui->tv_tabla->model()->rowCount(); i++){
-            //Si encontramos un lugar vacío
-            if( ui->tv_tabla->item(i,0)->text().isEmpty() ){
-                lugarTabla=i;
-                return lugarTabla;
-            }
+void MainWindow::on_pb_borrar_clicked()
+{
+    int i=0;
+    //Pedimos la llave en donde quiere borrar
+    int miPos = QInputDialog::getInt(this,"Ingresa la llave","Llave a eliminar: ",0,0);
+
+    if(existeLlave(miPos)){
+        int llaveB = localizarPos(miPos);
+        int posTabla = ui->tv_indice->item(llaveB,1)->text().toInt();
+        qDebug()<<"Datos de la tabla "<<posTabla;
+        QTableWidgetItem* aux;
+        for (i=llaveB;i<contIndices-1;i++) {
+            //Movemos la columa header
+            aux= new QTableWidgetItem(ui->tv_indice->item(i+1,0)->text());
+            ui->tv_indice->setItem(i,0,aux);
+            //Movemos la columa filas
+            aux = new QTableWidgetItem(ui->tv_indice->item(i+1,1)->text());
+            ui->tv_indice->setItem(i,1,aux);
         }
-        return -1;
+        //Eliminamos la ultima fila de indices
+        ui->tv_indice->removeRow(contIndices-1);
+
+        //Vaciamos la fila de la tabla de datos
+        for (i=0;i<ui->tv_tabla->columnCount();i++) {
+            ui->tv_tabla->item(posTabla-1,i)->setText("");
+        }
+    }
+    //Si no existe el indice
+    else{
+        QMessageBox::warning(this,"Error","No existe la llave en la tabla de indices.");
+        return;
+    }
+    //Actualizamos el valor
+    contIndices=ui->tv_indice->rowCount();
 }

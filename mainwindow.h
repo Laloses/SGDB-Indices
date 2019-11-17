@@ -25,6 +25,8 @@ private slots:
 
     void on_pb_insertar_clicked();
 
+    void on_pb_borrar_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase database;
