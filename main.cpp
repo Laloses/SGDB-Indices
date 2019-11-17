@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     buscarTablas w;
-    w.setWindowTitle("Busqueda de tablas");
+    w.database = QSqlDatabase::addDatabase("QMYSQL");
     w.show();
 
     return a.exec();

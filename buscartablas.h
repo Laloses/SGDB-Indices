@@ -14,11 +14,12 @@ class buscarTablas : public QDialog
     Q_OBJECT
 
 public:
-    explicit buscarTablas(QWidget *parent = nullptr, QSqlDatabase *datab= nullptr, QString db=nullptr);
+    explicit buscarTablas(QWidget *parent = nullptr, QSqlDatabase datab= QSqlDatabase::database());
     ~buscarTablas();
     QString getDB();
     void seleccionarT(QString nombre,QPushButton* pb);
     void clearLay(QLayout *layout);
+    QSqlDatabase database;
 
 
 private slots:
@@ -35,7 +36,6 @@ private slots:
 private:
     Ui::buscarTablas *ui;
     void verificarDB();
-    QSqlDatabase *database;
     QString db,nombre;
     bool hay,select;
 };

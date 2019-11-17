@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, QSqlDatabase *databse=nullptr, QString db="", QString nombre="");
+    explicit MainWindow(QWidget *parent = nullptr, QSqlDatabase databse=QSqlDatabase::database(), QString db="", QString nombre="");
     ~MainWindow();
 
 private slots:
@@ -27,7 +27,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSqlDatabase *database;
+    QSqlDatabase database;
     QFile datosImp;
     QString db, nombreT;
     int contIndices;
@@ -35,6 +35,10 @@ private:
     void vaciarTabla();
     void llenarIndices();
     void llenarTabla();
+    void corrimiento(int lugar);
+    int localizarPos(int llave);
+    int buscarLugarTabla();
+    bool existeLlave(int llave);
 };
 
 #endif // MAINWINDOW_H
