@@ -19,6 +19,7 @@ background-color:black;
 color: white;
 }
 QPushButton{
+background:black;
 border: 1px solid red;
 padding:2px;
 color:white;
@@ -26,7 +27,7 @@ color:white;
 QPushButton:hover{
 margin-top:1px;
 }
-QMessageBox,QInputDialog, QDialogButtonBox{
+QMessageBox::StandarButton,QInputDialog, QDialogButtonBox{
 color:black;
 }
 </string>
