@@ -1,3 +1,4 @@
+//Programado por Eduardo Martell Hernandez Hernandez AKA Laloses
 #include "buscartablas.h"
 #include "ui_buscartablas.h"
 #include "mainwindow.h"

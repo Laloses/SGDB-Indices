@@ -1,3 +1,4 @@
+#Programado por Eduardo Martell Hernandez Hernandez AKA Laloses
 #-------------------------------------------------
 #
 # Project created by QtCreator 2019-11-11T14:09:22

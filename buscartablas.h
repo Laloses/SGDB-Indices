@@ -1,3 +1,4 @@
+//Programado por Eduardo Martell Hernandez Hernandez AKA Laloses
 #ifndef BUSCARTABLAS_H
 #define BUSCARTABLAS_H
 

@@ -1,3 +1,4 @@
+//Programado por Eduardo Martell Hernandez Hernandez AKA Laloses
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
